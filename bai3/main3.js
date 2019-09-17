@@ -7,23 +7,28 @@ let Remote = function (id) {
             name.power = 'on';
         }
     };
-    this.addVolum = function (check) {
-        if (check === 1) {
+    this.setVolum = function (check) {
+        if (check) {
             tivi.volum++;
         } else {
             tivi.volum--;
         }
     }
 }
-let Tivi = function (status, volum, power) {
+let Tivi = function (status,channel, volum, power) {
     this.status = status;
+    this.channel=channel;
     this.volum = volum;
     this.power = power;
-    this.setStatus = function (status) {
-        this.status = status;
+    // this.setStatus = function (status) {
+    //     this.status = status;
+    // };
+    this.setChannel=function (channel) {
+        this.channel=channel;
     };
-    this.getTivi = function () {
-        return 'trang thai ti vi: ' + this.power + ' kenh dang bat= ' + this.status + ' am luong :' + this.volum;
+    this.getStatus = function () {
+        this.status='trang thai ti vi: ' + this.power + ' kenh dang bat= ' + this.channel + ' am luong :' + this.volum;
+        return this.status;
     }
 };
 function onoff() {
@@ -34,7 +39,7 @@ function onoff() {
 
 function Volum(check) {
     if (tivi.power === 'on') {
-        remote.addVolum(check);
+        remote.setVolum(check);
         document.getElementById('result').innerHTML = '';
         document.getElementById('result').innerHTML += 'volumn '+tivi.volum + '<br>';
     } else {
@@ -42,9 +47,9 @@ function Volum(check) {
     }
 }
 
-function control(number) {
+function control(channel) {
     if (tivi.power === 'on') {
-    tivi.setStatus(number);
+    tivi.setChannel(channel);
     checkstatus();
     } else {
         printPoweroff();
@@ -59,15 +64,16 @@ function printPoweroff() {
 function checkstatus() {
     if (tivi.power === 'on') {
         document.getElementById('result').innerHTML = '';
-        document.getElementById('result').innerHTML += tivi.getTivi() + '<br>';
+        document.getElementById('result').innerHTML += tivi.getStatus() + '<br>';
     } else {
         printPoweroff();
     }
 }
 let idRemote = 1;
 let remote = new Remote(idRemote);
-let statusTivi = 1;
+let statusTivi = '';
+let channelTivi=1;
 let volumTivi = 50;
 let powerTivi = 'off';
-let tivi = new Tivi(statusTivi, volumTivi, powerTivi);
+let tivi = new Tivi(statusTivi,channelTivi, volumTivi, powerTivi);
 
