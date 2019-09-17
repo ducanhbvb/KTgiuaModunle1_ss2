@@ -1,7 +1,6 @@
 let Remote = function (id) {
     this.id = id;
-    this.setConTrolpower=function(name)
-    {
+    this.setConTrolpower = function (name) {
         if (name.power === 'on') {
             name.power = 'off';
         } else {
@@ -9,7 +8,7 @@ let Remote = function (id) {
         }
     };
     this.addVolum = function (check) {
-        if (check===1) {
+        if (check === 1) {
             tivi.volum++;
         } else {
             tivi.volum--;
@@ -23,43 +22,52 @@ let Tivi = function (status, volum, power) {
     this.setStatus = function (status) {
         this.status = status;
     };
-    this.getTivi=function () {
-        return 'trang thai ti vi: '+this.power +' kenh dang bat= '+this.status+' am luong :'+this.volum;
+    this.getTivi = function () {
+        return 'trang thai ti vi: ' + this.power + ' kenh dang bat= ' + this.status + ' am luong :' + this.volum;
     }
-}
-let idRemote=1;
-let remote = new Remote(idRemote);
-let statusTivi=1;
-let volumTivi=50;
-let powerTivi='off';
-let tivi = new Tivi(statusTivi,volumTivi,powerTivi);
+};
 function onoff() {
-        remote.setConTrolpower(tivi);
-    document.getElementById('result').innerHTML='';
-        document.getElementById('result').innerHTML+=tivi.power+'<br>';
+    remote.setConTrolpower(tivi);
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('result').innerHTML += tivi.power + '<br>';
 }
+
 function Volum(check) {
     if (tivi.power === 'on') {
         remote.addVolum(check);
         document.getElementById('result').innerHTML = '';
-        document.getElementById('result').innerHTML += tivi.volum + '<br>';
-    }else {
-        printPower();
+        document.getElementById('result').innerHTML += 'volumn '+tivi.volum + '<br>';
+    } else {
+        printPoweroff();
     }
 }
+
 function control(number) {
-    tivi.setStatus(number)
-    checkstatus
+    if (tivi.power === 'on') {
+    tivi.setStatus(number);
+    checkstatus();
+    } else {
+        printPoweroff();
+    }
 }
-function printPower() {
+
+function printPoweroff() {
     document.getElementById('result').innerHTML = '';
-    document.getElementById('result').innerHTML +='tivi '+ tivi.power;
+    document.getElementById('result').innerHTML += 'tivi ' + tivi.power;
 }
+
 function checkstatus() {
     if (tivi.power === 'on') {
         document.getElementById('result').innerHTML = '';
         document.getElementById('result').innerHTML += tivi.getTivi() + '<br>';
-    }else {
-        printPower();
+    } else {
+        printPoweroff();
     }
 }
+let idRemote = 1;
+let remote = new Remote(idRemote);
+let statusTivi = 1;
+let volumTivi = 50;
+let powerTivi = 'off';
+let tivi = new Tivi(statusTivi, volumTivi, powerTivi);
+
