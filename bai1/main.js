@@ -45,6 +45,7 @@ let PharmacistManager = function (id, name) {
     }
 };
 function inputPharmacist() {
+    document.getElementById("result").innerHTML = '';
     for (let i = 0; i < arrayID.length; i++) {
         document.getElementById("result").innerHTML += arrayID[i] + ',';
         document.getElementById("result").innerHTML += arrayName[i] + '<br>';
